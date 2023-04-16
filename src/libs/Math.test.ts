@@ -21,5 +21,20 @@ describe('Testing Math library', ()=>{
     it('should multiply two numbers correctly', ()=>{
         const response = Math.multi(5,10)
     expect(response).toBe(50)
-    })    
+    })
+
+    // TIPOS DE MATCHES
+    it('contar quantos caracteres tem na string', ()=>{
+        const response = 'DENIED'
+        expect(response).toHaveLength(6)
+    })
+
+    it.only('verifica se tem a propriedade idade', ()=>{
+        const response = {
+            name: 'Henrique',
+            email: 'henrique@teste.com'
+        }
+        expect(response).toHaveProperty('idade')
+    })
+
 })
