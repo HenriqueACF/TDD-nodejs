@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import * as UserService from '../services/UserService'
-import {User} from "../models/User";
 
 export const ping = (req: Request, res: Response) => {
     res.json({pong: true});
@@ -13,10 +12,10 @@ export const register = async (req: Request, res: Response) => {
         const newUser = await UserService.createUser(email, password)
 
         if(newUser instanceof  Error){
-            res.json({error: newUser})
+           return res.json({error: newUser})
         }else{
             res.status(201);
-            res.json({ id: newUser.id });
+            return res.json({ id: newUser.id });
         }
     }
 
