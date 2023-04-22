@@ -23,19 +23,36 @@ export const register = async (req: Request, res: Response) => {
     res.json({ error: 'E-mail e/ou senha não enviados.' });
 }
 
+// export const login = async (req: Request, res: Response) => {
+//     if(req.body.email && req.body.password) {
+//         let email: string = req.body.email;
+//         let password: string = req.body.password;
+//
+//         const user = await UserService.findByEmail(email)
+//
+//         if(user && await UserService.matchPassword(password, user.password)){
+//             res.json({status: true})
+//             return
+//         }
+//     }
+//
+//     res.json({ status: false });
+// }
+
 export const login = async (req: Request, res: Response) => {
-    if(req.body.email && req.body.password) {
+    if (req.body.email && req.body.password) {
         let email: string = req.body.email;
         let password: string = req.body.password;
 
-        const user = await UserService.findByEmail(email)
-
-        if(user && await UserService.matchPassword(password, user.password)){
-            res.json({status: true})
-            return
+        const user = await UserService.findByEmail(email);
+        if (user) {
+            const match = await UserService.matchPassword(password, user.password);
+            if (match) {
+                res.json({ status: true });
+                return
+            }
         }
     }
-
     res.json({ status: false });
 }
 
